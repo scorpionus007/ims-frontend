@@ -1,0 +1,60 @@
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { authService } from '../services/authService';
+import './Sidebar.css';
+
+interface SidebarProps {
+  isOpen: boolean;
+  onToggle: () => void;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
+  const location = useLocation();
+  const user = authService.getCurrentUser();
+  const isAdmin = user?.role === 'Admin';
+
+  const adminMenuItems = [
+    { path: '/admin/dashboard', label: 'Dashboard', icon: '📊' },
+    { path: '/admin/fresh', label: 'Fresh', icon: '🆕' },
+    { path: '/admin/pending', label: 'Pending', icon: '⏳' },
+    { path: '/admin/ongoing', label: 'Approved & Ongoing', icon: '✅' },
+    { path: '/admin/rejected', label: 'Rejected', icon: '❌' },
+    { path: '/admin/completed', label: 'Completed', icon: '🎓' },
+  ];
+
+  const internMenuItems = [
+    { path: '/intern/dashboard', label: 'Dashboard', icon: '📊' },
+    { path: '/intern/reports', label: 'My Reports', icon: '📝' },
+    { path: '/intern/profile', label: 'Profile', icon: '👤' },
+  ];
+
+  const menuItems = isAdmin ? adminMenuItems : internMenuItems;
+
+  return (
+    <>
+      <div className={`sidebar-overlay ${isOpen ? 'active' : ''}`} onClick={onToggle} />
+      <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
+        <div className="sidebar-header">
+          <button className="sidebar-toggle" onClick={onToggle}>
+            ☰
+          </button>
+        </div>
+        <nav className="sidebar-nav">
+          {menuItems.map((item) => (
+            <Link
+              key={item.path}
+              to={item.path}
+              className={`sidebar-item ${location.pathname === item.path ? 'active' : ''}`}
+              onClick={() => window.innerWidth < 768 && onToggle()}
+            >
+              <span className="sidebar-icon">{item.icon}</span>
+              <span className="sidebar-label">{item.label}</span>
+            </Link>
+          ))}
+        </nav>
+      </aside>
+    </>
+  );
+};
+
+export default Sidebar;
