@@ -14,8 +14,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
   const isAdmin = user?.role === 'Admin';
 
   const adminMenuItems = [
-    { path: '/admin/dashboard', label: 'Dashboard', icon: '📊' },
-    { path: '/admin/fresh', label: 'Fresh', icon: '🆕' },
+    { path: '/admin/fresh', label: 'NEW Fresh', icon: '📄' },
     { path: '/admin/pending', label: 'Pending', icon: '⏳' },
     { path: '/admin/ongoing', label: 'Approved & Ongoing', icon: '✅' },
     { path: '/admin/rejected', label: 'Rejected', icon: '❌' },
@@ -34,17 +33,12 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
     <>
       <div className={`sidebar-overlay ${isOpen ? 'active' : ''}`} onClick={onToggle} />
       <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
-        <div className="sidebar-header">
-          <button className="sidebar-toggle" onClick={onToggle}>
-            ☰
-          </button>
-        </div>
         <nav className="sidebar-nav">
           {menuItems.map((item) => (
             <Link
               key={item.path}
               to={item.path}
-              className={`sidebar-item ${location.pathname === item.path ? 'active' : ''}`}
+              className={`sidebar-item ${location.pathname === item.path || (item.path === '/admin/fresh' && location.pathname === '/admin') ? 'active' : ''}`}
               onClick={() => window.innerWidth < 768 && onToggle()}
             >
               <span className="sidebar-icon">{item.icon}</span>

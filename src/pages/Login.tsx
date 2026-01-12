@@ -22,7 +22,7 @@ const Login: React.FC = () => {
       const user = response.user;
 
       if (user.role === 'Admin') {
-        navigate('/admin/dashboard');
+        navigate('/admin');
       } else if (user.role?.startsWith('Intern_')) {
         navigate('/intern/dashboard');
       } else {
@@ -49,7 +49,6 @@ const Login: React.FC = () => {
       </div>
       <div className="login-panel">
         <div className="login-branding">
-          <div className="unirp-badge">uniRP™</div>
           <div className="nfsu-branding">
             <img src="/nfsu-logo.png" alt="NFSU Logo" className="login-logo" />
             <div className="nfsu-text">
@@ -122,9 +121,6 @@ const Login: React.FC = () => {
               <button type="button" className="forgot-password">Forgot Password ?</button>
             </div>
           </form>
-          <div className="login-footer">
-            <p>Powered By - Bloomfield Innovations</p>
-          </div>
         </div>
       </div>
     </div>

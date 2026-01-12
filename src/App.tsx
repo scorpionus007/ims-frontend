@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import ProtectedRoute from './components/ProtectedRoute';
 import Login from './pages/Login';
+import HomePage from './pages/HomePage';
 import ApplicationForm from './pages/ApplicationForm';
 import EnrollmentForm from './pages/EnrollmentForm';
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -33,7 +34,8 @@ const App: React.FC = () => {
         )}
         <main className={`main-content ${showLayout ? 'with-layout' : ''}`}>
           <Routes>
-            <Route path="/login" element={isAuthenticated ? <Navigate to={user?.role === 'Admin' ? '/admin/dashboard' : '/intern/dashboard'} /> : <Login />} />
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={isAuthenticated ? <Navigate to={user?.role === 'Admin' ? '/admin' : '/intern/dashboard'} /> : <Login />} />
             <Route path="/apply" element={<ApplicationForm />} />
             <Route path="/enroll/:id" element={<EnrollmentForm />} />
             
@@ -84,7 +86,12 @@ const App: React.FC = () => {
               </ProtectedRoute>
             } />
             
-            <Route path="/" element={<Navigate to={isAuthenticated ? (user?.role === 'Admin' ? '/admin/dashboard' : '/intern/dashboard') : '/login'} />} />
+            
+            <Route path="/admin" element={
+              <ProtectedRoute allowedRoles={['Admin']}>
+                <Navigate to="/admin/fresh" replace />
+              </ProtectedRoute>
+            } />
           </Routes>
         </main>
       </div>

@@ -1,5 +1,7 @@
 .intern-dashboard {
-  padding: 20px;
+  padding: 40px;
+  min-height: calc(100vh - 80px);
+  background: #f5f5f5;
 }
 
 .dashboard-header {

@@ -67,17 +67,6 @@
   margin-bottom: 30px;
 }
 
-.unirp-badge {
-  display: inline-block;
-  background: #009688;
-  color: white;
-  padding: 8px 15px;
-  border-radius: 20px;
-  font-size: 14px;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
 .nfsu-branding {
   display: flex;
   align-items: flex-start;
